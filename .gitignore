@@ -1,1 +1,4 @@
-.idea
+server/node_modules
+server/public
+recipes/node_modules
+recipes/public
