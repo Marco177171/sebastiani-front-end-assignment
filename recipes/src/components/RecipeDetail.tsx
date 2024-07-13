@@ -1,67 +1,52 @@
-import { resolveCaa } from "dns";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getRecipeById } from "../functions/GetFunctions";
+import { Recipe } from "../interfaces/Interfaces";
 
-export interface Recipe {
-  id: string;
-  name: string;
-  ingredients: string[];
-  type: string;
-  instructions: string;
-  cuisineId: string;
-  dietId: string;
-  difficultyId: string;
-  image: string;
-}
-
-async function fetchRecipeById(id: string) {
-  try {
-    const response = await fetch("http://localhost:8080/recipes/{id}");
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status} ${response.statusText}`);
-    }
-    const data: Recipe = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Could not find recipes:", error);
-  }
-}
-
-const RecipeDetail: React.FC = (id: any) => {
-  const [Recipe, setItems] = useState<Recipe>();
+const RecipeDetail: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const getItems = async () => {
+    const getRecipe = async () => {
       try {
-        const Rec = await fetchRecipeById(id);
-        if (Rec != undefined) setItems(Rec);
+        const fetchedRecipe = await getRecipeById(id!);
+        setRecipe(fetchedRecipe);
       } catch (err) {
-        setError("Could not get recipes");
+        setError("Could not find the requested recipe");
       }
     };
-    getItems();
-  }, []);
+    getRecipe();
+  }, [id]);
 
-  if (error || Recipe == undefined) {
+  if (error) {
     return <div>{error}</div>;
+  }
+
+  if (!recipe) {
+    return <div>Loading...</div>;
   }
 
   return (
     <>
-      <h1>{Recipe.name}</h1>
       <div className="row">
         <div className="col6">
-          <h3>cuisine</h3>
-          <p>blabla</p>
-          <h3>cuisine</h3>
-          <p>blabla</p>
-          <h3>cuisine</h3>
-          <p>blabla</p>
-          <h3>cuisine</h3>
-          <p>blabla</p>
+          <h1>{recipe.name}</h1>
+          <div className="divider"></div>
+          {recipe.ingredients.map((item) => (
+            <p>{item}</p>
+          ))}
+          <div className="divider"></div>
+          <p>{recipe.instructions}</p>
         </div>
         <div className="col6">
-          <div className="picLarge"></div>
+          <div
+            className="picLarge"
+            style={{
+              backgroundImage: `url(http://localhost:8080${recipe.image})`,
+            }}
+          ></div>
         </div>
       </div>
     </>

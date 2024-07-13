@@ -175,13 +175,15 @@ input {
   font-size: 1em;
   padding: 4px;
 }
-
+input[type="search"]:focus {
+  border: none;
+}
 input::file-selector-button {
-  color: black;
+  color: lightgray;
   background-color: white;
   font-family: cpmono;
   margin-right: 8px auto;
-  border: 1px solid black;
+  border: 1px solid lightgray;
 }
 
 input[type="range"] {
@@ -250,8 +252,6 @@ main {
   top: 52px;
   left: 228px;
   bottom: 20px;
-  padding: 8px;
-  background-color: white;
   color: gray;
   overflow-y: auto;
   background-position: center;

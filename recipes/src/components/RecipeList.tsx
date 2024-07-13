@@ -1,29 +1,6 @@
 import React, { useState, useEffect } from "react";
-
-export interface Recipe {
-  id: string;
-  name: string;
-  ingredients: string[];
-  items: string;
-  instructions: string;
-  cuisineId: string;
-  dietId: string;
-  difficultyId: string;
-  image: string;
-}
-
-async function fetchRecipes() {
-  try {
-    const response = await fetch("http://localhost:8080/recipes");
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status} ${response.statusText}`);
-    }
-    const data: Recipe[] = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Could not find recipes: ", error);
-  }
-}
+import { Recipe } from "../interfaces/Interfaces";
+import { getRecipes } from "../functions/GetFunctions";
 
 const RecipeList: React.FC = () => {
   const [Recipe, setItems] = useState<Recipe[]>([]);
@@ -32,7 +9,7 @@ const RecipeList: React.FC = () => {
   useEffect(() => {
     const getItems = async () => {
       try {
-        const Recipes = await fetchRecipes();
+        const Recipes = await getRecipes();
         if (Recipes != undefined) setItems(Recipes);
       } catch (err) {
         setError("Could not get recipes");
@@ -51,9 +28,12 @@ const RecipeList: React.FC = () => {
         {Recipe.map((Recipes) => (
           <div className="col4" key={Recipes.id}>
             <div className="card">
-              <div className="picSmall">
-                <p>difficulty: {Recipes.difficultyId}</p>
-              </div>
+              <div
+                className="picSmall"
+                style={{
+                  backgroundImage: `url(http://localhost:8080${Recipes.image})`,
+                }}
+              ></div>
               <h3>{Recipes.name}</h3>
               <div className="divider"></div>
               <h6>INGREDIENTS</h6>
@@ -61,7 +41,7 @@ const RecipeList: React.FC = () => {
               {Recipes.ingredients.map((ingredients) => (
                 <p>{ingredients}</p>
               ))}
-              <a href="recipes/{Recipes.id}">see recipe's details</a>
+              <a href="{recipes/`${Recipes.id}`}">see recipe's details</a>
             </div>
           </div>
         ))}

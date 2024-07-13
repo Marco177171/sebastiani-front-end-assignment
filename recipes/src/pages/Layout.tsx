@@ -12,9 +12,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <p>RECIPIENT</p>
       </header>
       <nav>
-        <a href="">ciao</a>
-        <a href="">ciao</a>
-        <a href="">ciao</a>
+        <a href="/">all recipes</a>
       </nav>
       <SideBar />
       <main>
@@ -36,7 +34,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <a href="https://marco177171.github.io/">github pages</a>
                 </li>
                 <li>
-                  <a href="mailto:sebastianimarco@proton.me?subject=info_request">
+                  <a href="mailto:sebastianimarco@proton.me?subject=hi_there!">
                     email
                   </a>
                 </li>
@@ -62,7 +60,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         </footer>
       </main>
       <div className="explorer">
-        <a href="">add recipe</a>
+        <a href="/recipes/add">add recipe</a>
       </div>
     </>
   );
