@@ -34,8 +34,11 @@ export interface Comment {
 }
 
 export interface FilterFormstate {
-  searchText: string;
-  cuisinesIds: string[];
-  difficultyIds: string[];
-  dietsId: string[];
+  _page: number;
+  _limit: number;
+  q: string;
+  cuisineId: string;
+  dietId: string;
+  difficultyId: string;
+  _expand: [string];
 }

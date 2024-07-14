@@ -45,6 +45,15 @@ export async function GetCuisines() {
   }
 }
 
+export const getCuisineById = async (id: string): Promise<Cuisine> => {
+  const response = await fetch(`http://localhost:8080/cuisines`);
+  if (!response.ok) {
+    throw new Error(`Error: ${response.status} ${response.statusText}`);
+  }
+  const result: Cuisine = await response.json();
+  return result;
+};
+
 export async function getRecipes() {
   try {
     const response = await fetch("http://localhost:8080/recipes");

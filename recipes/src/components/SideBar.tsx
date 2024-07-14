@@ -15,27 +15,61 @@ const SideBar: React.FC = () => {
   const [diets, setDiets] = useState<Diet[]>([]);
   const [difficulties, setDifficulties] = useState<Difficulty[]>([]);
   const [cuisines, setCuisines] = useState<Cuisine[]>([]);
-  const [FilterFormstate, setFilters] = useState<FilterFormstate>({
-    searchText: "",
-    cuisinesIds: [],
-    difficultyIds: [],
-    dietsId: [],
+  const [filterFormState, setFilters] = useState<FilterFormstate>({
+    _page: 0,
+    _limit: 10,
+    q: "",
+    cuisineId: "",
+    dietId: "",
+    difficultyId: "",
+    _expand: [""],
   });
+  const [difficultiesFilters, setDifficultiesFilters] = useState<string[]>([]);
+  const [dietsFilters, setDietsFilters] = useState<string[]>([]);
+  const [cuisineFilters, setCuisinesFilters] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const changeSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFilters((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+  const updateDifficultiesFilters = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { value, checked } = e.target;
+    setDifficultiesFilters((prevData) =>
+      checked ? [...prevData, value] : prevData.filter((item) => item !== value)
+    );
+  };
+
+  const updateDietsFilters = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = e.target;
+    setDietsFilters((prevData) =>
+      checked ? [...prevData, value] : prevData.filter((item) => item !== value)
+    );
+  };
+
+  const updateCuisinesFilters = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = e.target;
+    setCuisinesFilters((prevData) =>
+      checked ? [...prevData, value] : prevData.filter((item) => item !== value)
+    );
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:3000/");
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
+
+    const query = new URLSearchParams();
+
+    query.append("q", filterFormState.q);
+    if (cuisineFilters.length > 0)
+      query.append("cuisineId", cuisineFilters.join(","));
+    if (dietsFilters.length > 0) query.append("dietId", dietsFilters.join(","));
+    if (difficultiesFilters.length > 0)
+      query.append("difficultyId", difficultiesFilters.join(","));
+
+    window.location.href = `/search_results?${query.toString()}`;
   };
 
   useEffect(() => {
@@ -71,61 +105,60 @@ const SideBar: React.FC = () => {
 
   return (
     <div className="sideBar">
-      <form action="/search_results">
+      <form onSubmit={handleSubmit}>
         <div className="sideBarSub">
           <input
             type="search"
-            name="search recipe"
+            name="q"
             id="search"
             placeholder="search a recipe..."
+            onChange={changeSearchText}
           />
           <div className="divider"></div>
           <h3>FILTERS</h3>
           <div className="divider"></div>
           <h6>cuisine</h6>
           {cuisines.map((cuisine) => (
-            <>
+            <div key={cuisine.id}>
               <input
                 type="checkbox"
-                key={cuisine.id}
-                name=""
-                id="cuisineCheckbox"
-                value={cuisine.name}
+                id={`cuisineId-${cuisine.id}`}
+                value={cuisine.id}
+                onChange={updateCuisinesFilters}
               />
-              <label>{cuisine.name}</label>
+              <label htmlFor={`cuisineId-${cuisine.id}`}>{cuisine.name}</label>
               <br />
-            </>
+            </div>
           ))}
-          <input type="checkbox" name="" id="" value={"ciao"} />
           <div className="divider"></div>
           <h6>difficulty</h6>
           {difficulties.map((difficulty) => (
-            <>
+            <div key={difficulty.id}>
               <input
                 type="checkbox"
-                key={difficulty.id}
-                name=""
-                id="difficultyCheckbox"
-                value={difficulty.name}
+                id={`difficultyId-${difficulty.id}`}
+                value={difficulty.id}
+                onChange={updateDifficultiesFilters}
               />
-              <label>{difficulty.name}</label>
+              <label htmlFor={`difficultyId-${difficulty.id}`}>
+                {difficulty.name}
+              </label>
               <br />
-            </>
+            </div>
           ))}
           <div className="divider"></div>
           <h6>diets</h6>
           {diets.map((diet) => (
-            <>
+            <div key={diet.id}>
               <input
                 type="checkbox"
-                key={diet.id}
-                name=""
-                id="dietCheckbox"
-                value={diet.name}
+                id={`diet-${diet.id}`}
+                value={diet.id}
+                onChange={updateDietsFilters}
               />
-              <label>{diet.name}</label>
+              <label htmlFor={`dietId-${diet.id}`}>{diet.name}</label>
               <br />
-            </>
+            </div>
           ))}
           <div className="divider"></div>
         </div>

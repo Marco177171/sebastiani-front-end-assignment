@@ -132,10 +132,10 @@ h6,
 }
 
 a {
-  color: var(--aleAzure);
-  text-decoration: dotted;
+  color: deepskyblue;
   margin-top: 0px;
   margin-bottom: 0px;
+  text-decoration: none;
 }
 
 a:hover {
@@ -605,7 +605,7 @@ details {
 
 .centralLarge,
 .centralMedium {
-  position: absolute;
+  position: relative;
   max-width: 100%;
   max-height: 100%;
   top: 50%;
