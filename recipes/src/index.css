@@ -164,7 +164,8 @@ a:hover {
   }
 }
 
-input {
+input,
+textarea {
   background-color: lightgray;
   color: var(--g2);
   font-family: eleganteClassica;
@@ -173,7 +174,8 @@ input {
   width: 100%;
   margin: 0px;
   font-size: 1em;
-  padding: 4px;
+  padding: 8px;
+  resize: none;
 }
 input[type="search"]:focus {
   border: none;
@@ -360,9 +362,9 @@ main {
 
 footer {
   color: gray;
-  margin-top: 32px;
+  margin: 8px auto;
+  margin-top: 64px;
   width: 100%;
-  border-radius: 8px;
   background-color: lightgray;
 }
 

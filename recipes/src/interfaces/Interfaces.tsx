@@ -24,3 +24,18 @@ export interface Recipe {
   difficultyId: string;
   image: string;
 }
+
+export interface Comment {
+  id: string;
+  recipeId: string;
+  comment: string;
+  rating: number;
+  date: string;
+}
+
+export interface FilterFormstate {
+  searchText: string;
+  cuisinesIds: string[];
+  difficultyIds: string[];
+  dietsId: string[];
+}

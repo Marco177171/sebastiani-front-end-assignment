@@ -1,16 +1,42 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   GetDiets,
   GetCuisines,
   GetDifficulties,
 } from "../functions/GetFunctions";
-import { Cuisine, Diet, Difficulty } from "../interfaces/Interfaces";
+import {
+  Cuisine,
+  Diet,
+  Difficulty,
+  FilterFormstate,
+} from "../interfaces/Interfaces";
 
 const SideBar: React.FC = () => {
   const [diets, setDiets] = useState<Diet[]>([]);
   const [difficulties, setDifficulties] = useState<Difficulty[]>([]);
   const [cuisines, setCuisines] = useState<Cuisine[]>([]);
+  const [FilterFormstate, setFilters] = useState<FilterFormstate>({
+    searchText: "",
+    cuisinesIds: [],
+    difficultyIds: [],
+    dietsId: [],
+  });
   const [error, setError] = useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFilters((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3000/");
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {

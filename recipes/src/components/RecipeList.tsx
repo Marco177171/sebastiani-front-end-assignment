@@ -41,7 +41,7 @@ const RecipeList: React.FC = () => {
               {Recipes.ingredients.map((ingredients) => (
                 <p>{ingredients}</p>
               ))}
-              <a href="{recipes/`${Recipes.id}`}">see recipe's details</a>
+              <a href={`/recipes/${Recipes.id}`}>see recipe's details</a>
             </div>
           </div>
         ))}

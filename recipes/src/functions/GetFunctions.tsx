@@ -1,4 +1,10 @@
-import { Diet, Difficulty, Cuisine, Recipe } from "../interfaces/Interfaces";
+import {
+  Diet,
+  Difficulty,
+  Cuisine,
+  Recipe,
+  Comment,
+} from "../interfaces/Interfaces";
 
 export async function GetDiets() {
   try {
@@ -58,5 +64,15 @@ export const getRecipeById = async (id: string): Promise<Recipe> => {
     throw new Error(`Error: ${response.status} ${response.statusText}`);
   }
   const data: Recipe = await response.json();
+  return data;
+};
+
+export const getRecipeComments = async (id: string): Promise<Comment[]> => {
+  const response = await fetch(`http://localhost:8080/recipes/${id}/comments`);
+  if (!response.ok) {
+    throw new Error(`Error: ${response.status} ${response.statusText}`);
+  }
+  const data: Comment[] = await response.json();
+  console.log("COMMENTS: ", data);
   return data;
 };
