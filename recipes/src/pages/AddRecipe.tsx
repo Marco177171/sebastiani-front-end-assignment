@@ -1,9 +1,10 @@
 import Layout from "./Layout";
+import NewRecipeForm from "../components/NewRecipeForm";
 
 function AddRecipe() {
   return (
     <Layout>
-      <p>add new recipe</p>
+      <NewRecipeForm />
     </Layout>
   );
 }

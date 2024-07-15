@@ -16,10 +16,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <a href="/">all recipes</a>
       </nav>
       <SideBar />
-      <main>
-        {children}
-        <Footer />
-      </main>
+      <main>{children}</main>
       <div className="explorer">
         <a href="/recipes/add">add recipe</a>
       </div>

@@ -13,6 +13,7 @@ const App: React.FC = () => {
         <Route path="/recipes/:id" element={<Details />} />
         <Route path="/recipes/add" element={<AddRecipe />} />
         <Route path="/search_results" element={<SearchResults />} />
+        <Route path="/new_recipe" element={<AddRecipe />} />
       </Routes>
     </Router>
   );

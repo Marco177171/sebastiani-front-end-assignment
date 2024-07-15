@@ -10,26 +10,37 @@ const RecipeDetail: React.FC = () => {
   const [comments, setComments] = useState<Comment[] | null>(null);
   const [newComment, setNewComment] = useState<Comment>({
     id: "",
-    recipeId: "",
+    recipeId: id || "",
     comment: "",
     rating: 5,
-    date: "",
+    date: new Date().toISOString(),
   });
   const [error, setError] = useState<string | null>(null);
 
-  const editComment = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const editComment = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setNewComment((prevData) => ({ ...prevData, [name]: value }));
-    console.log(newComment.comment);
-    console.log(newComment.recipeId);
-    console.log(newComment.rating);
   };
 
-  const submitComment = async (e: React.ChangeEvent<HTMLFormElement>) => {
+  const submitComment = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await PostComment(recipe!, newComment!);
+      const response = await PostComment(recipe!, {
+        ...newComment,
+        date: new Date().toISOString(),
+      });
       console.log(response);
+      setComments(comments);
+      setNewComment({
+        id: "",
+        recipeId: recipe!.id,
+        comment: "",
+        rating: 5,
+        date: new Date().toISOString(),
+      });
+      window.location.reload();
     } catch (error) {
       console.error(error);
     }
@@ -40,6 +51,10 @@ const RecipeDetail: React.FC = () => {
       try {
         const fetchedRecipe = await getRecipeById(id!);
         setRecipe(fetchedRecipe);
+        setNewComment((prevData) => ({
+          ...prevData,
+          recipeId: fetchedRecipe.id,
+        }));
       } catch (err) {
         setError("Could not find the requested recipe");
       }
@@ -71,8 +86,8 @@ const RecipeDetail: React.FC = () => {
           <h1>{recipe.name}</h1>
           <div className="divider"></div>
           <h6>YOU'LL NEED:</h6>
-          {recipe.ingredients.map((item) => (
-            <p>{item}</p>
+          {recipe.ingredients.map((item, index) => (
+            <p key={index}>{item}</p>
           ))}
           <div className="divider"></div>
           <h6>PREPARATION</h6>
@@ -80,7 +95,7 @@ const RecipeDetail: React.FC = () => {
           <div className="card">
             <h5>leave a comment</h5>
             <div className="divider"></div>
-            <form onSubmit={submitComment} method="post">
+            <form onSubmit={submitComment}>
               <div style={{ justifyContent: "space-around", display: "flex" }}>
                 <p>nasty</p>
                 <p>good</p>
@@ -91,16 +106,25 @@ const RecipeDetail: React.FC = () => {
               <input
                 type="range"
                 id="rating"
+                name="rating"
                 max={5}
                 min={1}
+                value={newComment.rating}
                 onChange={editComment}
               />
               <textarea
-                name="comment"
                 id="comment"
+                name="comment"
                 placeholder="type here..."
-                // onChange={editComment}
+                value={newComment.comment}
+                onChange={editComment}
               ></textarea>
+              <input
+                type="hidden"
+                name="recipeId"
+                value={newComment.recipeId}
+              />
+              <input type="hidden" name="date" value={newComment.date} />
               <input type="submit" value="submit comment" />
             </form>
           </div>
@@ -117,8 +141,8 @@ const RecipeDetail: React.FC = () => {
       <div className="divider"></div>
       <h3>COMMENTS</h3>
       <div className="row">
-        {comments.map((item) => (
-          <div className="col4">
+        {comments.map((item, index) => (
+          <div className="col4" key={index}>
             <div className="card">
               <>
                 <h5>rating: {item.rating}/5</h5>

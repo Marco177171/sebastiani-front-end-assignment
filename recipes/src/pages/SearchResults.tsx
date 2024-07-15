@@ -7,6 +7,7 @@ import {
   getCuisineById,
 } from "../functions/GetFunctions";
 import Layout from "./Layout";
+import Footer from "../components/Footer";
 
 interface DetailedRecipe extends Recipe {
   dietName: string;
@@ -80,7 +81,7 @@ const SearchResults: React.FC = () => {
                     {result.difficultyName}
                   </p>
                   <br />
-                  <a href={`/recipes/${result.id}`}>open</a>
+                  <a href={`/recipes/${result.id}`}>open {result.name}</a>
                 </div>
                 <div className="col4">
                   {result.ingredients.map((ingredient, index) => (
@@ -101,11 +102,12 @@ const SearchResults: React.FC = () => {
         ) : (
           <>
             <div className="divider"></div>
-            <h3>Your search did not produce any results</h3>
+            <h3>Your search returned no result</h3>
             <a href="/">Go back</a>
           </>
         )}
       </div>
+      <Footer />
     </Layout>
   );
 };
