@@ -19,6 +19,19 @@ export async function GetDiets() {
   }
 }
 
+export const getDietById = async (id: string): Promise<Cuisine> => {
+  const response = await fetch(`http://localhost:8080/diets`);
+  if (!response.ok) {
+    throw new Error(`Error: ${response.status} ${response.statusText}`);
+  }
+  const result: Cuisine[] = await response.json();
+  const diets = result.find((cuisine) => cuisine.id === id);
+  if (!diets) {
+    throw new Error(`Cuisine with id ${id} not found`);
+  }
+  return diets;
+};
+
 export async function GetDifficulties() {
   try {
     const response = await fetch("http://localhost:8080/difficulties");
@@ -31,6 +44,19 @@ export async function GetDifficulties() {
     console.error("Could not find difficulties: ", error);
   }
 }
+
+export const getDifficultyById = async (id: string): Promise<Difficulty> => {
+  const response = await fetch(`http://localhost:8080/difficulties`);
+  if (!response.ok) {
+    throw new Error(`Error: ${response.status} ${response.statusText}`);
+  }
+  const result: Cuisine[] = await response.json();
+  const difficulty = result.find((cuisine) => cuisine.id === id);
+  if (!difficulty) {
+    throw new Error(`Cuisine with id ${id} not found`);
+  }
+  return difficulty;
+};
 
 export async function GetCuisines() {
   try {
@@ -50,8 +76,12 @@ export const getCuisineById = async (id: string): Promise<Cuisine> => {
   if (!response.ok) {
     throw new Error(`Error: ${response.status} ${response.statusText}`);
   }
-  const result: Cuisine = await response.json();
-  return result;
+  const result: Cuisine[] = await response.json();
+  const cuisine = result.find((cuisine) => cuisine.id === id);
+  if (!cuisine) {
+    throw new Error(`Cuisine with id ${id} not found`);
+  }
+  return cuisine;
 };
 
 export async function getRecipes() {

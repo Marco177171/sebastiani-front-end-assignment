@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Recipe } from "../interfaces/Interfaces";
+import { Recipe, Diet, Difficulty, Cuisine } from "../interfaces/Interfaces";
+import {
+  getDifficultyById,
+  getDietById,
+  getCuisineById,
+} from "../functions/GetFunctions";
 import Layout from "./Layout";
 
+interface DetailedRecipe extends Recipe {
+  dietName: string;
+  difficultyName: string;
+  cuisineName: string;
+}
+
 const SearchResults: React.FC = () => {
-  const [results, setResults] = useState<Recipe[]>([]);
+  const [results, setResults] = useState<DetailedRecipe[]>([]);
   const [error, setError] = useState<string | null>(null);
   const location = useLocation();
 
@@ -14,15 +25,35 @@ const SearchResults: React.FC = () => {
 
       console.log("QUERY STRING", query);
       console.log(`http://localhost:8080/recipes?${query}`);
+
       try {
         const response = await fetch(`http://localhost:8080/recipes?${query}`);
         if (!response.ok) {
           throw new Error("Failed to fetch search results");
         }
-        const data = await response.json();
-        setResults(data);
+        const data: Recipe[] = await response.json();
+
+        const detailedResults = await Promise.all(
+          data.map(async (item) => {
+            const [cuisine, difficulty, diet] = await Promise.all([
+              getCuisineById(item.cuisineId),
+              getDifficultyById(item.difficultyId),
+              getDietById(item.dietId),
+            ]);
+
+            return {
+              ...item,
+              cuisineName: cuisine.name,
+              difficultyName: difficulty.name,
+              dietName: diet.name,
+            };
+          })
+        );
+
+        setResults(detailedResults);
       } catch (err) {
         console.error(err);
+        setError("Failed to fetch search results");
       }
     };
 
@@ -30,7 +61,7 @@ const SearchResults: React.FC = () => {
   }, [location.search]);
 
   if (error) {
-    return <div>{error}</div>;
+    return <p>{error}</p>;
   }
 
   return (
@@ -44,15 +75,16 @@ const SearchResults: React.FC = () => {
                 <div className="divider"></div>
                 <div className="col4">
                   <h4>{result.name}</h4>
-                  <span>
-                    {result.cuisineId} | {result.dietId} | {result.difficultyId}
-                  </span>
+                  <p>
+                    {result.dietName}, {result.cuisineName},{" "}
+                    {result.difficultyName}
+                  </p>
                   <br />
                   <a href={`/recipes/${result.id}`}>open</a>
                 </div>
                 <div className="col4">
-                  {result.ingredients.map((ingredients) => (
-                    <p>{ingredients}</p>
+                  {result.ingredients.map((ingredient, index) => (
+                    <p key={index}>{ingredient}</p>
                   ))}
                 </div>
                 <div className="col4">
@@ -69,8 +101,8 @@ const SearchResults: React.FC = () => {
         ) : (
           <>
             <div className="divider"></div>
-            <h3>your research did not produce any result</h3>
-            <a href="/">go back</a>
+            <h3>Your search did not produce any results</h3>
+            <a href="/">Go back</a>
           </>
         )}
       </div>
