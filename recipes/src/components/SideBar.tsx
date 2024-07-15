@@ -17,44 +17,18 @@ const SideBar: React.FC = () => {
   const [cuisines, setCuisines] = useState<Cuisine[]>([]);
   const [filterFormState, setFilters] = useState<FilterFormstate>({
     _page: 0,
-    _limit: 10,
+    _limit: 9,
     q: "",
     cuisineId: "",
     dietId: "",
     difficultyId: "",
     _expand: [""],
   });
-  const [difficultiesFilters, setDifficultiesFilters] = useState<string[]>([]);
-  const [dietsFilters, setDietsFilters] = useState<string[]>([]);
-  const [cuisineFilters, setCuisinesFilters] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const changeSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const editSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFilters((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const updateDifficultiesFilters = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const { value, checked } = e.target;
-    setDifficultiesFilters((prevData) =>
-      checked ? [...prevData, value] : prevData.filter((item) => item !== value)
-    );
-  };
-
-  const updateDietsFilters = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = e.target;
-    setDietsFilters((prevData) =>
-      checked ? [...prevData, value] : prevData.filter((item) => item !== value)
-    );
-  };
-
-  const updateCuisinesFilters = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = e.target;
-    setCuisinesFilters((prevData) =>
-      checked ? [...prevData, value] : prevData.filter((item) => item !== value)
-    );
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -63,12 +37,11 @@ const SideBar: React.FC = () => {
     const query = new URLSearchParams();
 
     query.append("q", filterFormState.q);
-    if (cuisineFilters.length > 0)
-      query.append("cuisineId", cuisineFilters.join(","));
-    if (dietsFilters.length > 0) query.append("dietId", dietsFilters.join(","));
-    if (difficultiesFilters.length > 0)
-      query.append("difficultyId", difficultiesFilters.join(","));
-
+    if (filterFormState.cuisineId)
+      query.append("cuisineId", filterFormState.cuisineId);
+    if (filterFormState.dietId) query.append("dietId", filterFormState.dietId);
+    if (filterFormState.difficultyId)
+      query.append("difficultyId", filterFormState.difficultyId);
     window.location.href = `/search_results?${query.toString()}`;
   };
 
@@ -112,7 +85,7 @@ const SideBar: React.FC = () => {
             name="q"
             id="search"
             placeholder="search a recipe..."
-            onChange={changeSearchText}
+            onChange={editSearch}
           />
           <div className="divider"></div>
           <h3>FILTERS</h3>
@@ -121,10 +94,11 @@ const SideBar: React.FC = () => {
           {cuisines.map((cuisine) => (
             <div key={cuisine.id}>
               <input
-                type="checkbox"
+                type="radio"
+                name="cuisineId"
                 id={`cuisineId-${cuisine.id}`}
                 value={cuisine.id}
-                onChange={updateCuisinesFilters}
+                onChange={editSearch}
               />
               <label htmlFor={`cuisineId-${cuisine.id}`}>{cuisine.name}</label>
               <br />
@@ -135,10 +109,11 @@ const SideBar: React.FC = () => {
           {difficulties.map((difficulty) => (
             <div key={difficulty.id}>
               <input
-                type="checkbox"
+                type="radio"
+                name="difficultyId"
                 id={`difficultyId-${difficulty.id}`}
                 value={difficulty.id}
-                onChange={updateDifficultiesFilters}
+                onChange={editSearch}
               />
               <label htmlFor={`difficultyId-${difficulty.id}`}>
                 {difficulty.name}
@@ -151,10 +126,11 @@ const SideBar: React.FC = () => {
           {diets.map((diet) => (
             <div key={diet.id}>
               <input
-                type="checkbox"
+                type="radio"
+                name="dietId"
                 id={`diet-${diet.id}`}
                 value={diet.id}
-                onChange={updateDietsFilters}
+                onChange={editSearch}
               />
               <label htmlFor={`dietId-${diet.id}`}>{diet.name}</label>
               <br />

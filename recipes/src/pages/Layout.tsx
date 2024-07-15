@@ -10,7 +10,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <>
       <header>
-        <p>RECIPIENT</p>
+        <p>Recipient | Marco Sebastiani for Xtream</p>
       </header>
       <nav>
         <a href="/">all recipes</a>

@@ -1,6 +1,7 @@
 import { Comment, Recipe } from "../interfaces/Interfaces";
 
 export const PostComment = async (recipe: Recipe, comment: Comment) => {
+  console.log("in post comment: Comment: ", comment);
   try {
     const response = await fetch(
       `url(http://localhost:8080/recipes/${recipe.id}/comments`,

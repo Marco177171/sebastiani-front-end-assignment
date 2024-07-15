@@ -20,6 +20,9 @@ const RecipeDetail: React.FC = () => {
   const editComment = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setNewComment((prevData) => ({ ...prevData, [name]: value }));
+    console.log(newComment.comment);
+    console.log(newComment.recipeId);
+    console.log(newComment.rating);
   };
 
   const submitComment = async (e: React.ChangeEvent<HTMLFormElement>) => {
@@ -76,12 +79,27 @@ const RecipeDetail: React.FC = () => {
           <p>{recipe.instructions}</p>
           <div className="card">
             <h5>leave a comment</h5>
-            <form action="submitComment" method="post">
-              <input type="range" id="rating" max={5} min={1} />
+            <div className="divider"></div>
+            <form onSubmit={submitComment} method="post">
+              <div style={{ justifyContent: "space-around", display: "flex" }}>
+                <p>nasty</p>
+                <p>good</p>
+                <p>nice!</p>
+                <p>great!</p>
+                <p>delicious</p>
+              </div>
+              <input
+                type="range"
+                id="rating"
+                max={5}
+                min={1}
+                onChange={editComment}
+              />
               <textarea
                 name="comment"
-                id="comment_text"
+                id="comment"
                 placeholder="type here..."
+                // onChange={editComment}
               ></textarea>
               <input type="submit" value="submit comment" />
             </form>
@@ -103,7 +121,7 @@ const RecipeDetail: React.FC = () => {
           <div className="col4">
             <div className="card">
               <>
-                <h5>{item.rating}/5</h5>
+                <h5>rating: {item.rating}/5</h5>
                 <div className="divider"></div>
                 <span>{item.comment}</span>
                 <p>{item.date}</p>

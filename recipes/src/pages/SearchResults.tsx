@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Recipe } from "../interfaces/Interfaces";
 import Layout from "./Layout";
 
@@ -10,9 +10,12 @@ const SearchResults: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const query = useParams;
+      const query = new URLSearchParams(location.search).toString();
+
+      console.log("QUERY STRING", query);
+      console.log(`http://localhost:8080/recipes?${query}`);
       try {
-        const response = await fetch(`http://localhost:8080/recipes${query}`);
+        const response = await fetch(`http://localhost:8080/recipes?${query}`);
         if (!response.ok) {
           throw new Error("Failed to fetch search results");
         }
@@ -64,11 +67,11 @@ const SearchResults: React.FC = () => {
             ))}
           </ul>
         ) : (
-          <div className="centralMedium">
-            <div className="card">
-              <h3>loading results...</h3>
-            </div>
-          </div>
+          <>
+            <div className="divider"></div>
+            <h3>your research did not produce any result</h3>
+            <a href="/">go back</a>
+          </>
         )}
       </div>
     </Layout>
