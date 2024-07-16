@@ -24,25 +24,35 @@ const RecipeList: React.FC = () => {
 
   return (
     <div>
+      <h1>RECIPIENT</h1>
       <div className="row">
         {Recipe.map((Recipes) => (
           <div className="col4" key={Recipes.id}>
-            <div className="card">
-              <div
-                className="picSmall"
-                style={{
-                  backgroundImage: `url(http://localhost:8080${Recipes.image})`,
-                }}
-              ></div>
-              <h3>{Recipes.name}</h3>
-              <div className="divider"></div>
-              <h6>INGREDIENTS</h6>
-              <div className="divider"></div>
-              {Recipes.ingredients.map((ingredients) => (
-                <p>{ingredients}</p>
-              ))}
-              <a href={`/recipes/${Recipes.id}`}>see recipe's details</a>
-            </div>
+            <a href={`/recipes/${Recipes.id}`}>
+              <div className="card">
+                <div
+                  className="picSmall"
+                  style={{
+                    backgroundImage: `url(http://localhost:8080${Recipes.image})`,
+                  }}
+                ></div>
+                <h3>{Recipes.name}</h3>
+                {/* <div className="divider"></div> */}
+                {/* <h6>INGREDIENTS</h6>
+                <div
+                  style={{
+                    height: "64px",
+                    overflow: "auto",
+                    backgroundColor: "lightgray",
+                    borderRadius: "8px",
+                  }}
+                >
+                  {Recipes.ingredients.map((ingredients) => (
+                    <p>{ingredients}</p>
+                  ))}
+                </div> */}
+              </div>
+            </a>
           </div>
         ))}
       </div>

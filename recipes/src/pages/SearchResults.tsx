@@ -72,31 +72,32 @@ const SearchResults: React.FC = () => {
         {results.length > 0 ? (
           <ul>
             {results.map((result) => (
-              <div className="row" key={result.id}>
-                <div className="divider"></div>
-                <div className="col4">
-                  <h4>{result.name}</h4>
-                  <p>
-                    {result.dietName}, {result.cuisineName},{" "}
-                    {result.difficultyName}
-                  </p>
-                  <br />
-                  <a href={`/recipes/${result.id}`}>open {result.name}</a>
+              <a href={`/recipes/${result.id}`}>
+                <div className="row" key={result.id}>
+                  <div className="divider"></div>
+                  <div className="col4">
+                    <h4>{result.name}</h4>
+                    <p>
+                      {result.dietName}, {result.cuisineName},{" "}
+                      {result.difficultyName}
+                    </p>
+                    <br />
+                  </div>
+                  <div className="col4">
+                    {result.ingredients.map((ingredient, index) => (
+                      <p key={index}>{ingredient}</p>
+                    ))}
+                  </div>
+                  <div className="col4">
+                    <div
+                      className="picSmall"
+                      style={{
+                        backgroundImage: `url(http://localhost:8080${result.image})`,
+                      }}
+                    ></div>
+                  </div>
                 </div>
-                <div className="col4">
-                  {result.ingredients.map((ingredient, index) => (
-                    <p key={index}>{ingredient}</p>
-                  ))}
-                </div>
-                <div className="col4">
-                  <div
-                    className="picSmall"
-                    style={{
-                      backgroundImage: `url(http://localhost:8080${result.image})`,
-                    }}
-                  ></div>
-                </div>
-              </div>
+              </a>
             ))}
           </ul>
         ) : (

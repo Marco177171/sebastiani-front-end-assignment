@@ -111,6 +111,7 @@ const RecipeDetail: React.FC = () => {
                 min={1}
                 value={newComment.rating}
                 onChange={editComment}
+                required
               />
               <textarea
                 id="comment"
@@ -118,13 +119,15 @@ const RecipeDetail: React.FC = () => {
                 placeholder="type here..."
                 value={newComment.comment}
                 onChange={editComment}
+                required
               ></textarea>
               <input
                 type="hidden"
                 name="recipeId"
                 value={newComment.recipeId}
+                required
               />
-              <input type="hidden" name="date" value={newComment.date} />
+              {/* <input type="hidden" name="date" value={newComment.date} /> */}
               <input type="submit" value="submit comment" />
             </form>
           </div>
@@ -145,10 +148,9 @@ const RecipeDetail: React.FC = () => {
           <div className="col4" key={index}>
             <div className="card">
               <>
-                <h5>rating: {item.rating}/5</h5>
+                <span>rating: {item.rating}/5</span>
                 <div className="divider"></div>
-                <span>{item.comment}</span>
-                <p>{item.date}</p>
+                <h5>{item.comment}</h5>
               </>
             </div>
           </div>

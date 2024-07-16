@@ -22,6 +22,7 @@ const NewRecipeForm: React.FC = () => {
   const [diets, setDiets] = useState<Diet[]>([]);
   const [difficulties, setDifficulties] = useState<Difficulty[]>([]);
   const [cuisines, setCuisines] = useState<Cuisine[]>([]);
+  const [ingredientsString, setIngredientsString] = useState<string>("");
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
@@ -61,15 +62,15 @@ const NewRecipeForm: React.FC = () => {
     }));
   };
 
-  const handleArrayChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setRecipe((prevRecipe) => ({
-      ...prevRecipe,
-      [name]: value.split(" ").map((ingredient) => ingredient.trim()),
-    }));
-    console.log(recipe.ingredients);
+  const handleIngredientsListChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value) {
+      setRecipe((prevRecipe) => ({
+        ...prevRecipe,
+        ingredients: e.target.value
+          .split(",")
+          .map((ingredient) => ingredient.trim()),
+      }));
+    }
   };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -181,10 +182,9 @@ const NewRecipeForm: React.FC = () => {
             <input
               type="text"
               name="ingredients"
-              value={recipe.ingredients}
+              // value={recipe.ingredients}
               placeholder="type ingredients here"
-              onChange={handleArrayChange}
-              multiple
+              onChange={handleIngredientsListChange}
               required
             />
             <div className="divider"></div>

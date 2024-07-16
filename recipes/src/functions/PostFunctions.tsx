@@ -26,14 +26,10 @@ export const PostComment = async (recipe: Recipe, comment: Comment) => {
 };
 
 export const PostRecipe = async (recipe: Recipe) => {
-  console.log("adding new recipe to db");
   try {
     const formData = new FormData();
     formData.append("name", recipe.name);
-    console.log(recipe.ingredients);
-    recipe.ingredients.forEach((ingredient, index) =>
-      formData.append(`ingredients[${index}]`, ingredient)
-    );
+    formData.append("ingredients", recipe.ingredients.join(","));
     formData.append("items", recipe.items);
     formData.append("instructions", recipe.instructions);
     formData.append("cuisineId", recipe.cuisineId);
@@ -47,7 +43,7 @@ export const PostRecipe = async (recipe: Recipe) => {
     });
 
     if (!response.ok) {
-      throw new Error(`Error: ${response.status} ${response.statusText}`);
+      throw new Error(`Error: ${response.status} ${response.statusText} `);
     }
   } catch (error) {
     console.error("Could not post recipe: ", error);

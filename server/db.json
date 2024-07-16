@@ -99,7 +99,13 @@
     {
       "id": "7",
       "name": "Sushi Rolls",
-      "ingredients": ["Sushi Rice", "Nori", "Fish", "Cucumber", "Avocado"],
+      "ingredients": [
+        "Sushi Rice",
+        "Nori",
+        "Fish",
+        "Cucumber",
+        "Avocado"
+      ],
       "instructions": "Spread rice on nori. Add fillings. Roll and slice.",
       "cuisineId": "5",
       "dietId": "2",
@@ -109,7 +115,13 @@
     {
       "id": "8",
       "name": "Paella",
-      "ingredients": ["Rice", "Saffron", "Seafood", "Bell Peppers", "Peas"],
+      "ingredients": [
+        "Rice",
+        "Saffron",
+        "Seafood",
+        "Bell Peppers",
+        "Peas"
+      ],
       "instructions": "Cook rice with saffron. Add seafood and vegetables. Simmer until done.",
       "cuisineId": "6",
       "dietId": "2",
@@ -167,7 +179,13 @@
     {
       "id": "12",
       "name": "Butter Chicken",
-      "ingredients": ["Chicken", "Tomato Sauce", "Cream", "Butter", "Spices"],
+      "ingredients": [
+        "Chicken",
+        "Tomato Sauce",
+        "Cream",
+        "Butter",
+        "Spices"
+      ],
       "instructions": "Cook chicken with spices. Add tomato sauce and cream. Simmer until done.",
       "cuisineId": "4",
       "dietId": "2",
@@ -177,7 +195,13 @@
     {
       "id": "13",
       "name": "Fish and Chips",
-      "ingredients": ["Cod", "Potatoes", "Flour", "Beer", "Salt"],
+      "ingredients": [
+        "Cod",
+        "Potatoes",
+        "Flour",
+        "Beer",
+        "Salt"
+      ],
       "instructions": "Batter and fry fish. Fry potatoes. Serve with salt.",
       "cuisineId": "10",
       "dietId": "2",
@@ -187,7 +211,13 @@
     {
       "id": "14",
       "name": "Beef Stroganoff",
-      "ingredients": ["Beef", "Mushrooms", "Onions", "Sour Cream", "Butter"],
+      "ingredients": [
+        "Beef",
+        "Mushrooms",
+        "Onions",
+        "Sour Cream",
+        "Butter"
+      ],
       "instructions": "Cook beef and vegetables. Add sour cream. Serve with noodles.",
       "cuisineId": "11",
       "dietId": "2",
@@ -213,7 +243,13 @@
     {
       "id": "16",
       "name": "Falafel",
-      "ingredients": ["Chickpeas", "Onion", "Garlic", "Parsley", "Spices"],
+      "ingredients": [
+        "Chickpeas",
+        "Onion",
+        "Garlic",
+        "Parsley",
+        "Spices"
+      ],
       "instructions": "Blend ingredients. Form into balls. Fry until golden.",
       "cuisineId": "12",
       "dietId": "2",
@@ -239,7 +275,13 @@
     {
       "id": "18",
       "name": "Shakshuka",
-      "ingredients": ["Tomatoes", "Eggs", "Onions", "Bell Peppers", "Spices"],
+      "ingredients": [
+        "Tomatoes",
+        "Eggs",
+        "Onions",
+        "Bell Peppers",
+        "Spices"
+      ],
       "instructions": "Cook vegetables with spices. Add eggs. Simmer until eggs are set.",
       "cuisineId": "13",
       "dietId": "2",
@@ -265,7 +307,13 @@
     {
       "id": "20",
       "name": "Bibimbap",
-      "ingredients": ["Rice", "Beef", "Vegetables", "Egg", "Gochujang"],
+      "ingredients": [
+        "Rice",
+        "Beef",
+        "Vegetables",
+        "Egg",
+        "Gochujang"
+      ],
       "instructions": "Cook rice. Arrange beef and vegetables on top. Add egg and sauce.",
       "cuisineId": "14",
       "dietId": "2",
@@ -275,7 +323,13 @@
     {
       "id": "21",
       "name": "Pancakes",
-      "ingredients": ["Flour", "Milk", "Eggs", "Baking Powder", "Sugar"],
+      "ingredients": [
+        "Flour",
+        "Milk",
+        "Eggs",
+        "Baking Powder",
+        "Sugar"
+      ],
       "instructions": "Mix ingredients. Cook on griddle. Serve with syrup.",
       "cuisineId": "2",
       "dietId": "2",
@@ -297,6 +351,138 @@
       "dietId": "3",
       "difficultyId": "1",
       "image": "/uploads/Pasta-Primavera-f.jpg"
+    },
+    {
+      "id": "1721137972961",
+      "name": "ricetta",
+      "ingredients": [
+        "[\"uno\"",
+        " \"due\"",
+        " \"tre\"]"
+      ],
+      "instructions": "\"fai er panico\"",
+      "dietId": "1",
+      "difficultyId": "2",
+      "image": null
+    },
+    {
+      "id": "1721137991028",
+      "name": "ricetta",
+      "ingredients": [
+        "uno",
+        " sdue",
+        "tre"
+      ],
+      "instructions": "\"fai er panico\"",
+      "dietId": "1",
+      "difficultyId": "2",
+      "image": null
+    },
+    {
+      "id": "1721138080259",
+      "name": "ricetta",
+      "ingredients": [
+        "uno",
+        " sdue",
+        "tre"
+      ],
+      "instructions": "fai er panico",
+      "dietId": "1",
+      "difficultyId": "2",
+      "image": null
+    },
+    {
+      "id": "1721138094917",
+      "name": "ricetta",
+      "ingredients": [
+        "uno",
+        " sdue",
+        "tre"
+      ],
+      "instructions": "fai er panico",
+      "dietId": "1",
+      "difficultyId": "2",
+      "image": null
+    },
+    {
+      "id": "1721138097814",
+      "name": "ricetta",
+      "ingredients": [
+        "uno",
+        " sdue",
+        "tre"
+      ],
+      "instructions": "fai er panico",
+      "dietId": "1",
+      "difficultyId": "2",
+      "image": null
+    },
+    {
+      "id": "1721138105412",
+      "name": "ricetta",
+      "ingredients": [
+        "uno",
+        " sdue",
+        "tre"
+      ],
+      "instructions": "fai er panico",
+      "dietId": "1",
+      "difficultyId": "2",
+      "image": null
+    },
+    {
+      "id": "1721138106479",
+      "name": "ricetta",
+      "ingredients": [
+        "uno",
+        " sdue",
+        "tre"
+      ],
+      "instructions": "fai er panico",
+      "dietId": "1",
+      "difficultyId": "2",
+      "image": null
+    },
+    {
+      "id": "1721138113524",
+      "name": "ricetta",
+      "ingredients": [
+        "uno",
+        " sdue",
+        "tre"
+      ],
+      "instructions": "fai er panico",
+      "dietId": "1",
+      "difficultyId": "2",
+      "image": null
+    },
+    {
+      "id": "1721139025005",
+      "name": "ricetta",
+      "ingredients": [
+        "ciao",
+        "ciao",
+        "ciao"
+      ],
+      "instructions": "ciao",
+      "cuisineId": "1",
+      "dietId": "1",
+      "difficultyId": "1",
+      "image": "/uploads/1721139025001.jpeg"
+    },
+    {
+      "id": "1721139034738",
+      "name": "last",
+      "ingredients": [
+        "ciao",
+        "ciao",
+        "ciao"
+      ],
+      "instructions": "ciao",
+      "cuisineId": "1",
+      "dietId": "1",
+      "difficultyId": "1",
+      "image": "/uploads/1721139034734.jpeg"
     }
   ],
   "comments": [
@@ -481,6 +667,62 @@
       "comment": "Fresh and vibrant.",
       "rating": 4,
       "date": "2024-07-02T14:20:00.000Z"
+    },
+    {
+      "comment": "",
+      "rating": "4",
+      "date": "2024-07-16T14:13:59.436Z",
+      "recipeId": "7",
+      "id": "XehN-AY"
+    },
+    {
+      "comment": "",
+      "rating": 5,
+      "date": "2024-07-16T14:14:33.525Z",
+      "recipeId": "1",
+      "id": "f-D6eY8"
+    },
+    {
+      "comment": "",
+      "rating": 5,
+      "date": "2024-07-16T14:15:50.988Z",
+      "recipeId": "1",
+      "id": "G3Ffznf"
+    },
+    {
+      "comment": "",
+      "rating": 5,
+      "date": "2024-07-16T14:16:08.880Z",
+      "recipeId": "1",
+      "id": "Zqp8zPH"
+    },
+    {
+      "comment": "",
+      "rating": 5,
+      "date": "2024-07-16T14:16:26.133Z",
+      "recipeId": "1",
+      "id": "cI10Dd1"
+    },
+    {
+      "comment": "",
+      "rating": "2",
+      "date": "2024-07-16T14:16:30.237Z",
+      "recipeId": "1",
+      "id": "2ffjPHh"
+    },
+    {
+      "comment": "ciao",
+      "rating": 5,
+      "date": "2024-07-16T14:24:15.919Z",
+      "recipeId": "1",
+      "id": "LH8ayO7"
+    },
+    {
+      "comment": "ciao",
+      "rating": 5,
+      "date": "2024-07-16T14:24:31.128Z",
+      "recipeId": "1",
+      "id": "AgcECVi"
     }
   ],
   "cuisines": [
