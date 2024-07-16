@@ -351,6 +351,26 @@
       "dietId": "3",
       "difficultyId": "1",
       "image": "/uploads/Pasta-Primavera-f.jpg"
+    },
+    {
+      "id": "1721126135565",
+      "name": "cia",
+      "ingredients": [],
+      "instructions": "ciao",
+      "cuisineId": "1",
+      "dietId": "1",
+      "difficultyId": "1",
+      "image": null
+    },
+    {
+      "id": "1721127656917",
+      "name": "ciao",
+      "ingredients": [],
+      "instructions": "instructions",
+      "cuisineId": "1",
+      "dietId": "3",
+      "difficultyId": "2",
+      "image": "/uploads/1721127656904.jpeg"
     }
   ],
   "comments": [
@@ -556,6 +576,20 @@
       "date": "2024-07-15T16:58:06.084Z",
       "recipeId": "3",
       "id": "GPToD_n"
+    },
+    {
+      "comment": "that was gross",
+      "rating": "2",
+      "date": "2024-07-16T10:16:36.872Z",
+      "recipeId": "22",
+      "id": "08PKzcC"
+    },
+    {
+      "comment": "ciao comment",
+      "rating": "3",
+      "date": "2024-07-16T11:04:00.098Z",
+      "recipeId": "1721127656917",
+      "id": "Wxo4jGb"
     }
   ],
   "cuisines": [

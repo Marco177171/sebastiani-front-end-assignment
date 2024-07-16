@@ -22,7 +22,7 @@ export interface Recipe {
   cuisineId: string;
   dietId: string;
   difficultyId: string;
-  image: string;
+  image: string | File;
 }
 
 export interface Comment {

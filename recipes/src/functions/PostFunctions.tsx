@@ -28,12 +28,27 @@ export const PostComment = async (recipe: Recipe, comment: Comment) => {
 export const PostRecipe = async (recipe: Recipe) => {
   console.log("adding new recipe to db");
   try {
-    const response = await fetch(
-      `url(http://localhost:8080/recipes/${recipe.id}/comments`,
-      {
-        method: "POST",
-        body: recipe.id,
-      }
+    const formData = new FormData();
+    formData.append("name", recipe.name);
+    recipe.ingredients.forEach((ingredient, index) =>
+      formData.append(`ingredients[${index}]`, ingredient)
     );
-  } catch {}
+    formData.append("items", recipe.items);
+    formData.append("instructions", recipe.instructions);
+    formData.append("cuisineId", recipe.cuisineId);
+    formData.append("dietId", recipe.dietId);
+    formData.append("difficultyId", recipe.difficultyId);
+    formData.append("image", recipe.image);
+
+    const response = await fetch(`http://localhost:8080/recipes/`, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status} ${response.statusText}`);
+    }
+  } catch (error) {
+    console.error("Could not post recipe: ", error);
+  }
 };

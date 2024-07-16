@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import { Recipe, Diet, Difficulty, Cuisine } from "../interfaces/Interfaces";
 import {
   GetDiets,
@@ -8,7 +8,17 @@ import {
 import { PostRecipe } from "../functions/PostFunctions";
 
 const NewRecipeForm: React.FC = () => {
-  const [recipe, setRecipe] = useState<Recipe | null>(null);
+  const [recipe, setRecipe] = useState<Recipe>({
+    id: "",
+    name: "",
+    ingredients: [],
+    items: "",
+    instructions: "",
+    cuisineId: "",
+    dietId: "",
+    difficultyId: "",
+    image: "",
+  });
   const [diets, setDiets] = useState<Diet[]>([]);
   const [difficulties, setDifficulties] = useState<Difficulty[]>([]);
   const [cuisines, setCuisines] = useState<Cuisine[]>([]);
@@ -34,22 +44,59 @@ const NewRecipeForm: React.FC = () => {
         const cuisines = await GetCuisines();
         if (cuisines) setCuisines(cuisines);
       } catch (err) {
-        setError("Could not find cuisines");
+        setError("Could not get cuisines");
       }
     };
 
     fetchData();
   }, []);
 
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setRecipe((prevRecipe) => ({
+      ...prevRecipe,
+      [name]: value,
+    }));
+  };
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      setRecipe((prevRecipe) => ({
+        ...prevRecipe,
+        image: file,
+      }));
+    }
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
+      await PostRecipe(recipe);
+      alert("Recipe posted successfully!");
+    } catch (err) {
+      setError("Could not post recipe");
+    }
+  };
+
   return (
     <>
       <div className="centralLarge">
         <div className="card">
-          <form action="">
+          <form onSubmit={handleSubmit}>
             <h3>New Recipe</h3>
             <div className="divider"></div>
             <h5>name</h5>
-            <input type="text" name="" id="" placeholder="recipe's name..." />
+            <input
+              type="text"
+              name="name"
+              placeholder="recipe's name..."
+              value={recipe.name}
+              onChange={handleChange}
+              required
+            />
             <div className="row">
               <div className="col4">
                 <h6>cuisine</h6>
@@ -60,7 +107,9 @@ const NewRecipeForm: React.FC = () => {
                       name="cuisineId"
                       id={`cuisineId-${cuisine.id}`}
                       value={cuisine.id}
-                      // onChange={editSearch}
+                      checked={recipe.cuisineId === cuisine.id}
+                      onChange={handleChange}
+                      required
                     />
                     <label htmlFor={`cuisineId-${cuisine.id}`}>
                       {cuisine.name}
@@ -78,7 +127,9 @@ const NewRecipeForm: React.FC = () => {
                       name="difficultyId"
                       id={`difficultyId-${difficulty.id}`}
                       value={difficulty.id}
-                      // onChange={editSearch}
+                      checked={recipe.difficultyId === difficulty.id}
+                      onChange={handleChange}
+                      required
                     />
                     <label htmlFor={`difficultyId-${difficulty.id}`}>
                       {difficulty.name}
@@ -94,9 +145,11 @@ const NewRecipeForm: React.FC = () => {
                     <input
                       type="radio"
                       name="dietId"
-                      id={`diet-${diet.id}`}
+                      id={`dietId-${diet.id}`}
                       value={diet.id}
-                      // onChange={editSearch}
+                      checked={recipe.dietId === diet.id}
+                      onChange={handleChange}
+                      required
                     />
                     <label htmlFor={`dietId-${diet.id}`}>{diet.name}</label>
                     <br />
@@ -105,12 +158,21 @@ const NewRecipeForm: React.FC = () => {
               </div>
             </div>
             <div className="divider"></div>
-            <h5>description</h5>
+            <h5>instructions</h5>
             <textarea
-              name=""
-              id=""
-              placeholder="write description here..."
+              name="instructions"
+              placeholder="write instructions here..."
+              value={recipe.instructions}
+              onChange={handleChange}
+              required
             ></textarea>
+            <h5>Image</h5>
+            <input
+              type="file"
+              name="image"
+              onChange={handleImageChange}
+              required
+            />
             <input type="submit" value="post recipe" />
           </form>
         </div>
