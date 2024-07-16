@@ -61,6 +61,17 @@ const NewRecipeForm: React.FC = () => {
     }));
   };
 
+  const handleArrayChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setRecipe((prevRecipe) => ({
+      ...prevRecipe,
+      [name]: value.split(" ").map((ingredient) => ingredient.trim()),
+    }));
+    console.log(recipe.ingredients);
+  };
+
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
@@ -158,6 +169,25 @@ const NewRecipeForm: React.FC = () => {
               </div>
             </div>
             <div className="divider"></div>
+            <h5>Image</h5>
+            <input
+              type="file"
+              name="image"
+              onChange={handleImageChange}
+              required
+            />
+            <div className="divider"></div>
+            <h5>ingredients</h5>
+            <input
+              type="text"
+              name="ingredients"
+              value={recipe.ingredients}
+              placeholder="type ingredients here"
+              onChange={handleArrayChange}
+              multiple
+              required
+            />
+            <div className="divider"></div>
             <h5>instructions</h5>
             <textarea
               name="instructions"
@@ -166,13 +196,6 @@ const NewRecipeForm: React.FC = () => {
               onChange={handleChange}
               required
             ></textarea>
-            <h5>Image</h5>
-            <input
-              type="file"
-              name="image"
-              onChange={handleImageChange}
-              required
-            />
             <input type="submit" value="post recipe" />
           </form>
         </div>

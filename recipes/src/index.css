@@ -337,10 +337,10 @@ main {
 
 .sideBarBottom {
   position: sticky;
+  background-color: white;
   bottom: 0px;
-  left: 8px;
-  right: 8px;
-  margin: 4px auto;
+  left: 0px;
+  right: 0px;
 }
 
 .sideBarSub {

@@ -371,6 +371,16 @@
       "dietId": "3",
       "difficultyId": "2",
       "image": "/uploads/1721127656904.jpeg"
+    },
+    {
+      "id": "1721128393485",
+      "name": "ciao",
+      "ingredients": [],
+      "instructions": "ciao",
+      "cuisineId": "9",
+      "dietId": "1",
+      "difficultyId": "1",
+      "image": "/uploads/1721128393463.jpg"
     }
   ],
   "comments": [

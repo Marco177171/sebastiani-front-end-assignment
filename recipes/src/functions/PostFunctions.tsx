@@ -30,6 +30,7 @@ export const PostRecipe = async (recipe: Recipe) => {
   try {
     const formData = new FormData();
     formData.append("name", recipe.name);
+    console.log(recipe.ingredients);
     recipe.ingredients.forEach((ingredient, index) =>
       formData.append(`ingredients[${index}]`, ingredient)
     );
@@ -40,7 +41,7 @@ export const PostRecipe = async (recipe: Recipe) => {
     formData.append("difficultyId", recipe.difficultyId);
     formData.append("image", recipe.image);
 
-    const response = await fetch(`http://localhost:8080/recipes/`, {
+    const response = await fetch(`http://localhost:8080/recipes`, {
       method: "POST",
       body: formData,
     });
