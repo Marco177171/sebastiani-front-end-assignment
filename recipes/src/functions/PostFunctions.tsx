@@ -36,12 +36,10 @@ export const PostRecipe = async (recipe: Recipe) => {
     formData.append("dietId", recipe.dietId);
     formData.append("difficultyId", recipe.difficultyId);
     formData.append("image", recipe.image);
-
     const response = await fetch(`http://localhost:8080/recipes`, {
       method: "POST",
       body: formData,
     });
-
     if (!response.ok) {
       throw new Error(`Error: ${response.status} ${response.statusText} `);
     }

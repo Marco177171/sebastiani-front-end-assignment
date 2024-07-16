@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getRecipeById, getRecipeComments } from "../functions/GetFunctions";
+import {
+  getRecipeById,
+  getCuisineById,
+  getDifficultyById,
+  getDietById,
+  getRecipeComments,
+} from "../functions/GetFunctions";
 import { Recipe, Comment } from "../interfaces/Interfaces";
 import { PostComment } from "../functions/PostFunctions";
 
@@ -15,6 +21,9 @@ const RecipeDetail: React.FC = () => {
     rating: 5,
     date: new Date().toISOString(),
   });
+  const [dietString, setDietString] = useState<string>("");
+  const [difficultyString, setDifficultyString] = useState<string>("");
+  const [cuisineString, setCuisineString] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
   const editComment = (
@@ -47,28 +56,30 @@ const RecipeDetail: React.FC = () => {
   };
 
   useEffect(() => {
-    const getRecipe = async () => {
+    const fetchRecipeData = async () => {
       try {
         const fetchedRecipe = await getRecipeById(id!);
         setRecipe(fetchedRecipe);
-        setNewComment((prevData) => ({
-          ...prevData,
-          recipeId: fetchedRecipe.id,
-        }));
-      } catch (err) {
-        setError("Could not find the requested recipe");
-      }
-    };
-    getRecipe();
-    const getComments = async () => {
-      try {
+
+        const fetchedCuisine = await getCuisineById(fetchedRecipe.cuisineId);
+        setCuisineString(fetchedCuisine.name);
+
+        const fetchedDiet = await getDietById(fetchedRecipe.dietId);
+        setDietString(fetchedDiet.name);
+
+        const fetchedDifficulty = await getDifficultyById(
+          fetchedRecipe.difficultyId
+        );
+        setDifficultyString(fetchedDifficulty.name);
+
         const fetchedComments = await getRecipeComments(id!);
         setComments(fetchedComments);
       } catch (err) {
         setError("Could not find the requested recipe");
       }
     };
-    getComments();
+
+    fetchRecipeData();
   }, [id]);
 
   if (error) {
@@ -84,6 +95,9 @@ const RecipeDetail: React.FC = () => {
       <div className="row">
         <div className="col6">
           <h1>{recipe.name}</h1>
+          <p>
+            {cuisineString}, {dietString}, {difficultyString}
+          </p>
           <div className="divider"></div>
           <h6>YOU'LL NEED:</h6>
           {recipe.ingredients.map((item, index) => (

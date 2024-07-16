@@ -37,20 +37,6 @@ const RecipeList: React.FC = () => {
                   }}
                 ></div>
                 <h3>{Recipes.name}</h3>
-                {/* <div className="divider"></div> */}
-                {/* <h6>INGREDIENTS</h6>
-                <div
-                  style={{
-                    height: "64px",
-                    overflow: "auto",
-                    backgroundColor: "lightgray",
-                    borderRadius: "8px",
-                  }}
-                >
-                  {Recipes.ingredients.map((ingredients) => (
-                    <p>{ingredients}</p>
-                  ))}
-                </div> */}
               </div>
             </a>
           </div>

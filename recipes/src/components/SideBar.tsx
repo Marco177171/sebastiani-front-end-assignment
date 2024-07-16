@@ -33,7 +33,6 @@ const SideBar: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const query = new URLSearchParams();
 
     query.append("q", filterFormState.q);
@@ -50,28 +49,16 @@ const SideBar: React.FC = () => {
       try {
         const diets = await GetDiets();
         if (diets) setDiets(diets);
-      } catch (err) {
-        setError("Could not get diets");
-      }
-
-      try {
         const difficulties = await GetDifficulties();
         if (difficulties) setDifficulties(difficulties);
-      } catch (err) {
-        setError("Could not get difficulties");
-      }
-
-      try {
         const cuisines = await GetCuisines();
         if (cuisines) setCuisines(cuisines);
       } catch (err) {
-        setError("Could not find cuisines");
+        setError("Could not fetch data");
       }
     };
-
     fetchData();
   }, []);
-
   if (error) {
     return <div>{error}</div>;
   }
@@ -136,7 +123,6 @@ const SideBar: React.FC = () => {
               <br />
             </div>
           ))}
-          <div className="divider"></div>
         </div>
         <div className="sideBarBottom">
           <input type="submit" value="search" />
