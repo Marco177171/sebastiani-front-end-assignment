@@ -6,6 +6,7 @@ import {
   getDifficultyById,
   getDietById,
   getRecipeComments,
+  computeAverage,
 } from "../functions/GetFunctions";
 import { Recipe, Comment } from "../interfaces/Interfaces";
 import { PostComment } from "../functions/PostFunctions";
@@ -25,6 +26,7 @@ const RecipeDetail: React.FC = () => {
   const [difficultyString, setDifficultyString] = useState<string>("");
   const [cuisineString, setCuisineString] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
+  const [average, setAverage] = useState<number>(5);
 
   const editComment = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -74,6 +76,9 @@ const RecipeDetail: React.FC = () => {
 
         const fetchedComments = await getRecipeComments(id!);
         setComments(fetchedComments);
+
+        const average = await computeAverage(fetchedComments);
+        setAverage(average);
       } catch (err) {
         setError("Could not find the requested recipe");
       }
@@ -96,7 +101,8 @@ const RecipeDetail: React.FC = () => {
         <div className="col6">
           <h1>{recipe.name}</h1>
           <p>
-            {cuisineString}, {dietString}, {difficultyString}
+            {cuisineString}, {dietString}, {difficultyString} | {average}/5
+            rated
           </p>
           <div className="divider"></div>
           <h6>YOU'LL NEED:</h6>

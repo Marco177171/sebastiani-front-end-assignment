@@ -1,3 +1,4 @@
+import { join } from "path";
 import {
   Diet,
   Difficulty,
@@ -115,6 +116,19 @@ export const getRecipeComments = async (id: string): Promise<Comment[]> => {
     throw new Error(`Error: ${response.status} ${response.statusText}`);
   }
   const data: Comment[] = await response.json();
-  console.log("COMMENTS: ", data);
   return data;
+};
+
+export const computeAverage = async (comments: Comment[]): Promise<number> => {
+  let sum: number = 0;
+  let amount: number = 0;
+
+  comments.forEach((item) => {
+    sum += item.rating;
+    amount++;
+  });
+
+  const average = amount === 0 ? 0 : sum / amount;
+  const result = parseFloat(average.toFixed(2));
+  return result;
 };
