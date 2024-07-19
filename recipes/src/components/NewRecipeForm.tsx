@@ -22,7 +22,6 @@ const NewRecipeForm: React.FC = () => {
   const [diets, setDiets] = useState<Diet[]>([]);
   const [difficulties, setDifficulties] = useState<Difficulty[]>([]);
   const [cuisines, setCuisines] = useState<Cuisine[]>([]);
-  const [ingredientsString, setIngredientsString] = useState<string>("");
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
@@ -30,21 +29,21 @@ const NewRecipeForm: React.FC = () => {
       try {
         const diets = await GetDiets();
         if (diets) setDiets(diets);
-      } catch (err) {
+      } catch (error) {
         setError("Could not get diets");
       }
 
       try {
         const difficulties = await GetDifficulties();
         if (difficulties) setDifficulties(difficulties);
-      } catch (err) {
+      } catch (error) {
         setError("Could not get difficulties");
       }
 
       try {
         const cuisines = await GetCuisines();
         if (cuisines) setCuisines(cuisines);
-      } catch (err) {
+      } catch (error) {
         setError("Could not get cuisines");
       }
     };

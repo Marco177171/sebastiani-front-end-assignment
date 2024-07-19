@@ -10,7 +10,7 @@ const RecipeList: React.FC = () => {
     const getItems = async () => {
       try {
         const Recipes = await getRecipes();
-        if (Recipes != undefined) setItems(Recipes);
+        if (Recipes !== undefined) setItems(Recipes);
       } catch (err) {
         setError("Could not get recipes");
       }
