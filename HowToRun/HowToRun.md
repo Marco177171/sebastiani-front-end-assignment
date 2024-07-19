@@ -23,4 +23,4 @@ to run the app, or
 make clean
 ```
 
-to clean up node_modules and public folders
+to clean up node_modules
