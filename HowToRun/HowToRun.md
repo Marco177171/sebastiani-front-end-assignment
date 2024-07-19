@@ -13,14 +13,14 @@ the backend on it's port, on <http://localhost:8080>
 
 Alternatively, you can use the Makefile tools I have left in both folders, just cd in and type
 
-'''bash
-make
-'''
+```bash
+make install && make
+```
 
 to run the app, or
 
-'''bash
+```bash
 make clean
-'''
+```
 
 to clean up node_modules and public folders
